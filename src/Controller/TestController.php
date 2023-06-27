@@ -8,8 +8,16 @@ use Symfony\Component\Routing\Annotation\Route;
 
 class TestController extends AbstractController
 {
-    #[Route('/test/nombres-au-carre', name: 'app_test')]
+    #[Route('/test', name: 'app_test')]
     public function index(): Response
+    {
+        return $this->render('test/index.html.twig', [
+            'controller_name' => 'TestController',
+        ]);
+    }
+
+    #[Route('/test/nombres-au-carre', name: 'app_test')]
+    public function carre(): Response
     {
         return $this->render("test/carre.html.twig");
     }
