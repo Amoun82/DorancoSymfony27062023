@@ -1,0 +1,41 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Exo table auteur
+{% endblock %}
+
+{% block body %}
+	<style>
+		table,
+		td {
+			border: 1px solid #333;
+		}
+
+		thead,
+		tfoot {
+			background-color: #333;
+			color: #fff;
+		}
+	</style>
+
+	<table>
+		<thead>
+			<tr>
+				<th colspan="3">la table des auteurs</th>
+			</tr>
+			<tr>
+				<th>id</th>
+				<th>nom</th>
+				<th>bio</th>
+			</tr>
+		</thead>
+        <tbody>
+			{% for auteur in auteurs %}
+				<tr>
+					<td>{{ auteur.id }}</td>
+					<td>{{ auteur.nom ~ " " ~ auteur.prenom}}</td>
+					<td>{{ auteur.bio }}</td>
+				</tr>
+			{% endfor %}
+		</tbody>
+	</table>
+{% endblock %}

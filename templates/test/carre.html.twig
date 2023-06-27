@@ -1,0 +1,42 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Le carré{% endblock %}
+
+{% block body %}
+	<style>
+		table,
+		td {
+			border: 1px solid #333;
+		}
+
+		thead,
+		tfoot {
+			background-color: #333;
+			color: #fff;
+		}
+	</style>
+	<h2>exo 1</h2>
+
+	<table>
+		<thead>
+			<tr>
+				<th colspan="2">la table de carré</th>
+			</tr>
+			<tr>
+				<th>Nombre</th>
+				<th>Carré</th>
+			</tr>
+		</thead>
+		<tbody>
+			{% for i in 1..100 %}
+				<tr>
+					<td>{{ i }}</td>
+					<td>{{ i ** 2 }}
+					</td>
+				</tr>
+			{% endfor %}
+		</tbody>
+
+	</table>
+
+{% endblock %}

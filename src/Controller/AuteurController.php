@@ -33,7 +33,7 @@ class AuteurController extends AbstractController
         $listeAuteur = $auteurRepository->findAll() ;
 
         //dd($listeAuteur) ;
-        return $this->render('auteur/index.html.twig', [
+        return $this->render('auteur/exo.html.twig', [
             "auteurs" => $listeAuteur
         ]);
     }
