@@ -16,7 +16,7 @@ class AuteurController extends AbstractController
      * c'est-à-dire l'URL pour lequel cette méthode sera exécutée.
      * ⚠ le chemin dtoi tjs commencer par "/".
      */
-    #[Route('/auteur', name: 'app_auteur')]
+    #[Route('/auteurs', name: 'app_auteur')]
     public function index(AuteurRepository $auteurRepository): Response
     {
         /**
@@ -33,10 +33,20 @@ class AuteurController extends AbstractController
         $listeAuteur = $auteurRepository->findAll() ;
 
         //dd($listeAuteur) ;
-        return $this->render('auteur/exo.html.twig', [
+        return $this->render('auteur/liste.html.twig', [
             "auteurs" => $listeAuteur
         ]);
     }
+
+    #[Route('/auteur/{id}', name: 'app_auteur_fiche')]
+    public function fiche($id,AuteurRepository $ar)
+    {
+        $auteur = $ar->find($id) ;
+        return $this->render("auteur/fiche.html.twig", [
+            "auteur" => $auteur
+            ]) ;
+    }
+
 
     #[Route('/auteur/test', name: 'app_auteur_test')]
     public function test()
