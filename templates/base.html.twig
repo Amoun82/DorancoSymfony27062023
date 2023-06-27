@@ -1,19 +1,60 @@
 <!DOCTYPE html>
 <html>
-    <head>
-        <meta charset="UTF-8">
-        <title>{% block title %}Welcome!{% endblock %}</title>
-        <link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 128 128%22><text y=%221.2em%22 font-size=%2296%22>⚫️</text></svg>">
-        {# Run `composer require symfony/webpack-encore-bundle` to start using Symfony UX #}
-        {% block stylesheets %}
-            {{ encore_entry_link_tags('app') }}
-        {% endblock %}
+	<head>
+		<meta charset="UTF-8">
+		<title>
+			{% block title %}Welcome!
+			{% endblock %}
+		</title>
+		<link
+		rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 128 128%22><text y=%221.2em%22 font-size=%2296%22>⚫️</text></svg>">
+		{# Run `composer require symfony/webpack-encore-bundle` to start using Symfony UX #}
+		{% block stylesheets %}
+			{{ encore_entry_link_tags('app') }}
+		{% endblock %}
 
-        {% block javascripts %}
-            {{ encore_entry_script_tags('app') }}
+		{% block javascripts %}
+			{{ encore_entry_script_tags('app') }}
+		{% endblock %}
+	</head>
+	<body>
+		<h1>Bienvenue à la bliblio</h1>
+		{% block body %}
+			{{ "du text dans un string" }}<br>
+			{{ 5 + 2 }}
+			<p>la valeur de la variable est
+				{{ variable }}</p>
+			<p>la valeur de la variable nombre est
+				{{ nombre }}</p>
+			<p>la valeur de prenom est
+				{{ prenom }}</p>
+
+        {# 
+        
+        
+        ╔═══════════════════════════════════════════════╦═══════════════════════════════════════╗
+        ║                    PHP                        ║              TWIG                     ║
+        ╠═══════════════════════════════════════════════╬═══════════════════════════════════════╣
+        ║   for($i=1 ; $i<=10 ; $i++) {                 ║   {% for i in 1..10 %}                ║
+        ║   foreach($tableau as $valeur) {              ║   {% for valeur in tableau %}         ║
+        ║   foreach($tableau as $indice => $valeur) {   ║   {% for indice, valeur in tableau %} ║
+        ╚═══════════════════════════════════════════════╩═══════════════════════════════════════╝
+
+        
+        #}
+		{% endblock %}
+        {% block piedDePage %}
+            voici mon pied de page
         {% endblock %}
-    </head>
-    <body>
-        {% block body %}{% endblock %}
-    </body>
+	</body>
 </html>
+
+{# commentaire #}
+
+{#
+    - ⚠ jamais de balise PHP dans un fichier twig
+    - L'équivalent de la balise echo <?= ?> pour twig : {{ expression }}
+    - Pour les autres balises tWIG, le principe est le même que les balises HTML :
+        ouverture : {% nomDeLaBalise %} 
+        fermeture : {% endnomDeMaBalise %}
+#}

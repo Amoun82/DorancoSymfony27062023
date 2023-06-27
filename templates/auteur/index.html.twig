@@ -1,0 +1,21 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Hello AuteurController!
+{% endblock %}
+
+{% block body %}
+	{% for i in 0..auteurs|length - 1 %}
+		<p>{{ i }}
+			-
+			{{ auteurs[i].nom }}</p>
+	{% endfor %}
+	<hr>
+
+    {#{ dump(auteurs) }#}
+
+	<ul>
+		{% for auteur in auteurs %}
+			<li>{{ auteur.nom ~ " " ~ auteur.prenom}} </li>
+		{% endfor %}
+	</ul>
+{% endblock %}
