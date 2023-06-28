@@ -7,11 +7,23 @@
 	<form method="post">
 		<div class="form-group">
 			<label for="titre">Titre</label>
-			<input type="text" name="titre" id="titre" class="form-control" value="{{ livre.titre }}">
+			<input type="text" name="titre" id="titre" class="form-control" value="{{ livre is defined ? livre.titre : "" }}">
 		</div>
 		<div class="form-group">
 			<label for="resume">Résumé</label>
-			<textarea name="resume" id="resume" class="form-control">{{ livre.resume }}</textarea>
+			<textarea name="resume" id="resume" class="form-control">{{ livre is defined ? livre.resume :"" }}</textarea>
+		</div>
+
+		<div class="form-group">
+			<label for="auteur_id">Auteurs :</label>
+			<select name="auteur_id" id="auteur_id" class="form-control">
+				<option value=""></option>
+				{% for auteur in auteurs %}
+					<option value="{{ auteur.id }}" {{ livre is defined and livre.auteur.id == auteur.id ? "selected" : "" }}>
+						{{ auteur.identite }}
+					</option>
+				{% endfor %}
+			</select>
 		</div>
 
 		<div class="col py-2">

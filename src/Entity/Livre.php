@@ -20,6 +20,9 @@ class Livre
     #[ORM\Column(type: Types::TEXT, nullable: true)]
     private ?string $resume = null;
 
+    #[ORM\ManyToOne(inversedBy: 'livres')]
+    private ?Auteur $auteur = null;
+
     public function getId(): ?int
     {
         return $this->id;
@@ -45,6 +48,18 @@ class Livre
     public function setResume(?string $resume): static
     {
         $this->resume = $resume;
+
+        return $this;
+    }
+
+    public function getAuteur(): ?Auteur
+    {
+        return $this->auteur;
+    }
+
+    public function setAuteur(?Auteur $auteur): static
+    {
+        $this->auteur = $auteur;
 
         return $this;
     }

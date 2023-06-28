@@ -19,15 +19,16 @@
 
     <h1>Bienvenue à la bliblio</h1>
 
-	<table>
+	<table class="table">
 		<thead>
 			<tr>
-				<th colspan="4">la table des auteurs</th>
+				<th colspan="5">la table des auteurs</th>
 			</tr>
 			<tr>
 				<th>id</th>
 				<th>nom</th>
 				<th>bio</th>
+				<th>Nb livres</th>
 				<th>action</th>
 			</tr>
 		</thead>
@@ -37,8 +38,11 @@
 					<td>{{ auteur.id }}</td>
 					<td>{{ auteur.nom ~ " " ~ auteur.prenom}}</td>
 					<td>{{ auteur.bio }}</td>
+					<td>{{ auteur.livres|length }}</td>
                     <td>
                         <a href="{{ path('app_auteur_fiche', {id: auteur.id}) }}">voir</a>
+                        <a href="{{ path('app_auteur_modifier', {id: auteur.id}) }}">modifier</a>
+                        <a href="{{ path('app_auteur_supprimer', {id: auteur.id}) }}">supprimer</a>
                     </td>
 				</tr>
 			{% endfor %}

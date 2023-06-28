@@ -19,6 +19,27 @@
                 <th>Biographie</th>
                 <td>{{ auteur.bio }}</td>
             </tr>
+            <tr>
+                <th>Livres</th>
+                <td>
+                    <table class="table table-borderd">
+                        <thead class="table-dark">
+                            <tr>
+                                <th>ID</th>
+                                <td>Titre</td>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            {% for livre in auteur.livres %}
+                                <tr>
+                                    <td>{{ livre.id }}</td>
+                                    <td>{{ livre.titre }}</td>
+                                </tr>
+                            {% endfor %}
+                        </tbody>
+                    </table>
+                </td>
+            </tr>
         </tbody>
     </table>
 

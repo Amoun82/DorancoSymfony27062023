@@ -2,10 +2,13 @@
 
 namespace App\Controller;
 
+use App\Entity\Auteur;
+use App\Form\AuteurFormType;
 use App\Repository\AuteurRepository;
-use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
+use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
+use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 
 class AuteurController extends AbstractController
 {
@@ -38,7 +41,7 @@ class AuteurController extends AbstractController
         ]);
     }
 
-    #[Route('/auteur/{id}', name: 'app_auteur_fiche')]
+    #[Route('/auteur/{id}', name: 'app_auteur_fiche', requirements:['id' => '\d+'])]
     public function fiche($id,AuteurRepository $ar)
     {
         $auteur = $ar->find($id) ;
@@ -47,6 +50,55 @@ class AuteurController extends AbstractController
             ]) ;
     }
 
+    #[Route("auteur/{id}/modifider", name: "app_auteur_modifier", requirements:["id" => "\d+"])]
+    public function modifier($id, Request $rq, AuteurRepository $ar)
+    {
+        $auteur = $ar->find($id) ;
+        $form = $this->createForm(AuteurFormType::class, $auteur) ;
+        $form->handleRequest($rq);
+        if($form->isSubmitted() && $form->isValid())
+        {
+            $ar->save($auteur, true) ;
+            return $this->redirectToRoute("app_auteur") ;
+        }
+        return $this->render("auteur/formulaire.html.twig", [
+            "formAuteur" => $form->createView(),
+            "auteur" => $auteur
+        ]);
+    }
+
+    #[Route("auteur/{id}/supprimer", name: "app_auteur_supprimer", requirements:["id" => "\d+"])]
+    public function supprimer($id, AuteurRepository $ar, Request $rq)
+    {
+        $auteur = $ar->find($id) ;
+
+        if ($rq->isMethod("POST"))
+        {
+            $ar->remove($auteur, true) ;
+
+            return $this->redirectToRoute("app_auteur") ;
+        }
+
+        return $this->render("auteur/suppression.html.twig", ["auteur" => $auteur]) ;
+
+    }
+
+
+    #[Route('/auteur/ajouter', name: 'app_auteur_ajouter')]
+    public function ajouter(Request $rq, AuteurRepository $ar)
+    {
+        $auteur = new Auteur ;
+        $form = $this->createForm(AuteurFormType::class, $auteur) ;
+        $form->handleRequest($rq);
+        if($form->isSubmitted() && $form->isValid())
+        {
+            $ar->save($auteur, true) ;
+            return $this->redirectToRoute("app_auteur") ;
+        }
+        return $this->render("auteur/formulaire.html.twig", [
+            "formAuteur" => $form->createView()
+        ]);
+    }
 
     #[Route('/auteur/test', name: 'app_auteur_test')]
     public function test()
