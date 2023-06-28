@@ -23,12 +23,11 @@
 	<table>
 		<thead>
 			<tr>
-				<th colspan="4">la table des livre</th>
+				<th colspan="3">la table des livre</th>
 			</tr>
 			<tr>
 				<th>id</th>
 				<th>titre</th>
-				<th>résumé</th>
 				<th>action</th>
 			</tr>
 		</thead>
@@ -37,9 +36,9 @@
 				<tr>
 					<td>{{ livre.id }}</td>
 					<td>{{ livre.titre }}</td>
-					<td>{{ livre.resume }}</td>
                     <td>
                         <a href="{{ path('app_livre_fiche', {id: livre.id}) }}">voir</a>
+						<a href="{{ path('app_livre_modifier', {id: livre.id}) }}">modifier</a>
                     </td>
 				</tr>
 			{% endfor %}
