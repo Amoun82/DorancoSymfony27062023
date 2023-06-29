@@ -15,6 +15,7 @@
 			{{ encore_entry_link_tags('app') }}
 		{% endblock %}
 
+		<script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.2/dist/umd/popper.min.js"></script>
 		<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.min.js" integrity="sha384-cuYeSxntonz0PPNlHhBs68uyIAVpIIOZZ5JqeqvYYIcEL727kskC66kF92t6Xl2V" crossorigin="anonymous"></script>
 		{% block javascripts %}
 			{{ encore_entry_script_tags('app') }}
@@ -26,8 +27,9 @@
 
 			{{ include("partiels/menu.html.twig")}}
 
+			<h1> {% block titreH1 %}Bienvenue à la biblio{% endblock %}</h1>
+
 			{% block body %}
-				<h1>Bienvenue à la bliblio</h1>
 				{{ "du text dans un string" }}<br>
 				{{ 5 + 2 }}
 				<p>la valeur de la variable est
@@ -38,18 +40,18 @@
 					{{ prenom }}</p>
 
 				{# 
-							        
-							        
-							        ╔═══════════════════════════════════════════════╦═══════════════════════════════════════╗
-							        ║                    PHP                        ║              TWIG                     ║
-							        ╠═══════════════════════════════════════════════╬═══════════════════════════════════════╣
-							        ║   for($i=1 ; $i<=10 ; $i++) {                 ║   {% for i in 1..10 %}                ║
-							        ║   foreach($tableau as $valeur) {              ║   {% for valeur in tableau %}         ║
-							        ║   foreach($tableau as $indice => $valeur) {   ║   {% for indice, valeur in tableau %} ║
-							        ╚═══════════════════════════════════════════════╩═══════════════════════════════════════╝
-							
-							        
-							        #}
+											        
+											        
+											        ╔═══════════════════════════════════════════════╦═══════════════════════════════════════╗
+											        ║                    PHP                        ║              TWIG                     ║
+											        ╠═══════════════════════════════════════════════╬═══════════════════════════════════════╣
+											        ║   for($i=1 ; $i<=10 ; $i++) {                 ║   {% for i in 1..10 %}                ║
+											        ║   foreach($tableau as $valeur) {              ║   {% for valeur in tableau %}         ║
+											        ║   foreach($tableau as $indice => $valeur) {   ║   {% for indice, valeur in tableau %} ║
+											        ╚═══════════════════════════════════════════════╩═══════════════════════════════════════╝
+											
+											        
+											        #}
 			{% endblock %}
 			{% block piedDePage %}
 				<footer>voici mon pied de page</footer>

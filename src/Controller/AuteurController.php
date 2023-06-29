@@ -62,8 +62,7 @@ class AuteurController extends AbstractController
             return $this->redirectToRoute("app_auteur") ;
         }
         return $this->render("auteur/formulaire.html.twig", [
-            "formAuteur" => $form->createView(),
-            "auteur" => $auteur
+            "formAuteur" => $form->createView()
         ]);
     }
 
