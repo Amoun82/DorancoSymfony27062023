@@ -19,7 +19,7 @@
 							<p class="card-text">De :
 								{{ livre.auteur.identite  }}</p>
 							<p class="card-text">Genre :
-                                {{ livre.genresTexte }}
+								{{ livre.genresTexte }}
 							</p>
 						</div>
 					</div>
@@ -30,6 +30,12 @@
 						<i class="fa fa-book"></i>
 						Voir plus
 					</a>
+					{% if is_granted("ROLE_LECTEUR") %}
+						<a href="{{ path('app_espace_lecteur_emprunter', {id: livre.id}) }}" class="card-link">
+							<i class="fa fa-cart-arrow-down"></i>
+							Emprunter
+						</a>
+					{% endif %}
 
 				</div>
 			</div>

@@ -24,7 +24,7 @@
                 <td>{{ abonne.id }}</td>
                 <td>{{ abonne.pseudo }}</td>
                 <td>{{ abonne.roles ? abonne.roles|json_encode : '' }}</td>
-                <td>{{ abonne.password }}</td>
+                <td>{{ abonne.password ? '****' : "" }}</td>
                 <td>{{ abonne.nom }}</td>
                 <td>{{ abonne.prenom }}</td>
                 <td>{{ abonne.naissance ? abonne.naissance|date('Y-m-d') : '' }}</td>

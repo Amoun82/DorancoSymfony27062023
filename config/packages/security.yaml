@@ -34,7 +34,7 @@ security:
     access_control:
         - { path: ajouter, roles: ROLE_BIBLIO }
         - { path: ^/admin, roles: ROLE_ADMIN }
-        # - { path: ^/profile, roles: ROLE_USER }
+        - { path: ^/espace-lecteur, roles: ROLE_LECTEUR }
 
     role_hierarchy:
         ROLE_ADMIN: ROLE_BIBLIO # le role admin a aussi le role biblio

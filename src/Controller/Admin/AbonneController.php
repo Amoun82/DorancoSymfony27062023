@@ -8,6 +8,7 @@ use App\Repository\AbonneRepository;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
+use Symfony\Component\PasswordHasher\Hasher\UserPasswordHasherInterface as Hasher;
 use Symfony\Component\Routing\Annotation\Route;
 
 #[Route('/admin/abonne')]
@@ -49,12 +50,21 @@ class AbonneController extends AbstractController
     }
 
     #[Route('/{id}/edit', name: 'app_admin_abonne_edit', methods: ['GET', 'POST'])]
-    public function edit(Request $request, Abonne $abonne, AbonneRepository $abonneRepository): Response
+    public function edit(Request $request,
+                        Abonne $abonne,
+                        AbonneRepository $abonneRepository,
+                        Hasher $hasher): Response
     {
         $form = $this->createForm(AbonneType::class, $abonne);
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
+            $mdp = $form->get("password")->getdata() ;
+            if( $mdp )
+            {
+                $password = $hasher->hashPassword($abonne, $mdp) ; // le mot de passe est encodé
+                $abonne->setPassword( $password ) ;                 // avant d'être affecté à la propirété 'password' de l'objet
+            }
             $abonneRepository->save($abonne, true);
 
             return $this->redirectToRoute('app_admin_abonne_index', [], Response::HTTP_SEE_OTHER);

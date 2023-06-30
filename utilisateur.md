@@ -1,3 +1,8 @@
+/* Exercice : sur la vignette d'un livre (page d'accueil), le lien pour emprunter 
+		ne doit s'afficher que si l'utilisateur connecté à le rôle LECTEUR
+*/
+
+
 // SECURITY
 1. symfony console make:user  	// pour créer l'entité Utilisateur
 2. symfony console make:entity	// pour ajouter des champs

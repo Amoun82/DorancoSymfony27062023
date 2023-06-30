@@ -1,0 +1,43 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Epace Lectuer
+{% endblock %}
+
+{% block titreH1 %}Epace Lectuer
+{% endblock %}
+
+{% block body %}
+
+	<h2>Historique de mes emprunts</h2>
+	<table class="table table-bordered">
+		<thead class="table-dark">
+			<tr>
+				<th>Date</th>
+				<th>Livre</th>
+				<th>Retour</th>
+			</tr>
+		</thead>
+		<tbody>
+			{# {{ dump(app.user) }} #}
+			{# {{ app.user.emprunts|length }} #}
+				{% for emprunt in app.user.emprunts %}
+					<tr><td>{{ emprunt.dateEmprunt|date('d/m/Y') }}
+					</td><td>{{ emprunt.livre.titreAuteur }}
+					</td><td>{{ emprunt.dateRetour ? emprunt.dateRetour|date('d/m/Y') : '❌' }}
+				</td>
+				</tr>
+			{% else %}
+				<tr>
+					<td class="alert alert-danger" colspan="3">Vous n'avez emprunté aucune livre</td>
+				</tr>
+			{% endfor %}
+		</tbody>
+		<tfoot class="table-dark">
+			<tr>
+				<th colspan="2">Nombre d'emprunts</th>
+				<td>{{ app.user.emprunts|length }}</td>
+			</tr>
+		</tfoot>
+	</table>
+
+{% endblock %}

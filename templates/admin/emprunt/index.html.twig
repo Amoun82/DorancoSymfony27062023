@@ -25,7 +25,7 @@
                 <td>{{ emprunt.id }}</td>
                 <td>{{ emprunt.abonne.pseudo }}</td>
                 <td>{{ emprunt.livre.titreAuteur }}</td>
-                <td>{{  emprunt.dateEmprunt|date('d/m/Y') }}</td>
+                <td>{{ emprunt.dateEmprunt|date('d/m/Y') }}</td>
                 <td>{{ emprunt.dateRetour ? emprunt.dateRetour|date('d/m/Y') : 'à rendre' }}</td>
                 <td>
                     <a href="{{ path('app_admin_emprunt_show', {'id': emprunt.id}) }}">show</a>
