@@ -3,6 +3,8 @@
 namespace App\Entity;
 
 use App\Repository\LivreRepository;
+use Doctrine\Common\Collections\ArrayCollection;
+use Doctrine\Common\Collections\Collection;
 use Doctrine\DBAL\Types\Types;
 use Doctrine\ORM\Mapping as ORM;
 
@@ -22,6 +24,18 @@ class Livre
 
     #[ORM\ManyToOne(inversedBy: 'livres')]
     private ?Auteur $auteur = null;
+
+    #[ORM\ManyToMany(targetEntity: Genre::class, inversedBy: 'livres')]
+    private Collection $genres;
+
+    #[ORM\OneToMany(mappedBy: 'livre', targetEntity: Emprunt::class, orphanRemoval: true)]
+    private Collection $emprunts;
+
+    public function __construct()
+    {
+        $this->genres = new ArrayCollection();
+        $this->emprunts = new ArrayCollection();
+    }
 
     public function getId(): ?int
     {
@@ -62,5 +76,76 @@ class Livre
         $this->auteur = $auteur;
 
         return $this;
+    }
+
+    /**
+     * @return Collection<int, Genre>
+     */
+    public function getGenres(): Collection
+    {
+        return $this->genres;
+    }
+
+    public function addGenre(Genre $genre): static
+    {
+        if (!$this->genres->contains($genre)) {
+            $this->genres->add($genre);
+        }
+
+        return $this;
+    }
+
+    public function removeGenre(Genre $genre): static
+    {
+        $this->genres->removeElement($genre);
+
+        return $this;
+    }
+
+    public function getGenresTexte(): string
+    {
+        $texte = "";
+        foreach ($this->genres as $genre) {
+            if ($texte != "") {
+                $texte .= ", " ;
+            }
+            $texte .= $genre->getLibelle();
+        }
+        return $texte;
+    }
+
+    /**
+     * @return Collection<int, Emprunt>
+     */
+    public function getEmprunts(): Collection
+    {
+        return $this->emprunts;
+    }
+
+    public function addEmprunt(Emprunt $emprunt): static
+    {
+        if (!$this->emprunts->contains($emprunt)) {
+            $this->emprunts->add($emprunt);
+            $emprunt->setLivre($this);
+        }
+
+        return $this;
+    }
+
+    public function removeEmprunt(Emprunt $emprunt): static
+    {
+        if ($this->emprunts->removeElement($emprunt)) {
+            // set the owning side to null (unless already changed)
+            if ($emprunt->getLivre() === $this) {
+                $emprunt->setLivre(null);
+            }
+        }
+
+        return $this;
+    }
+
+    public function getTitreAuteur()
+    {
+        return $this->titre . " - " . $this->auteur->getIdentite() ;
     }
 }

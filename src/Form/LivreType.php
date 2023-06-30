@@ -2,6 +2,7 @@
 
 namespace App\Form;
 
+use App\Entity\Genre;
 use App\Entity\Livre;
 use App\Entity\Auteur;
 use Symfony\Component\Form\AbstractType;
@@ -17,11 +18,17 @@ class LivreType extends AbstractType
             ->add('titre')
             ->add('resume')
             ->add('auteur', EntityType::class, [
-                "class" => Auteur::class,
-                "choice_label" => "identite",
-                "placeholder" => "Choississez un auteur..."
+                "class"         => Auteur::class,
+                "choice_label"  => "identite",
+                "placeholder"   => "Choississez un auteur..."
             ])
-        ;
+            ->add("genres", EntityType::class, [
+                "class"         => Genre::class,
+                "choice_label"  => "libelle",
+                "multiple"      => true,
+                "expanded"      => true
+
+            ]);
     }
 
     public function configureOptions(OptionsResolver $resolver): void

@@ -5,12 +5,14 @@ namespace App\Controller\Admin;
 use App\Entity\Auteur;
 use App\Form\AuteurType;
 use App\Repository\AuteurRepository;
+use Sensio\Bundle\FrameworkExtraBundle\Configuration\IsGranted;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 
 #[Route('/admin/auteur')]
+// #[IsGranted("ROLE_ADMIN")]
 class AuteurController extends AbstractController
 {
     #[Route('/', name: 'app_admin_auteur_index', methods: ['GET'])]
@@ -22,6 +24,7 @@ class AuteurController extends AbstractController
     }
 
     #[Route('/new', name: 'app_admin_auteur_new', methods: ['GET', 'POST'])]
+    // #[IsGranted("ROLE_ADMIN")]
     public function new(Request $request, AuteurRepository $auteurRepository): Response
     {
         $auteur = new Auteur();
@@ -69,7 +72,7 @@ class AuteurController extends AbstractController
     #[Route('/{id}', name: 'app_admin_auteur_delete', methods: ['POST'])]
     public function delete(Request $request, Auteur $auteur, AuteurRepository $auteurRepository): Response
     {
-        if ($this->isCsrfTokenValid('delete'.$auteur->getId(), $request->request->get('_token'))) {
+        if ($this->isCsrfTokenValid('delete' . $auteur->getId(), $request->request->get('_token'))) {
             $auteurRepository->remove($auteur, true);
         }
 
